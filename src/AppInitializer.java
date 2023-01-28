@@ -174,8 +174,10 @@ public class AppInitializer {
                     updateCustomer();
                     break;
                 case 4:
+                    deleteCustomer();
                     break;
                 case 5:
+                    printAllCustomers();
                     break;
                 case 6:
                     break;
@@ -185,8 +187,64 @@ public class AppInitializer {
         }
     }
 
+    // all customers
+    public static void printAllCustomers() {
+        for (int i = 0; i < customers.length; i++) {
+            if (customers[i][0]!=null){
+                System.out.println("Nic:"+customers[i][0]+"\tName:"+customers[i][1]+"\tAddress:"+customers[i][2]+"\tSalary:"+customers[i][3]);
+            }else{
+                return;
+            }
+        }
+    }
+
+    //delete customer
+    public static void deleteCustomer() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert Nic");
+        String nic = input.nextLine();
+
+        for (int i = 0; i < customers.length; i++) {
+            if (customers[i][0] != null) {
+                if (customers[i][0].equals(nic)) {
+                    customers[i][0] = null;
+                    customers[i][1] = null;
+                    customers[i][2] = null;
+                    customers[i][3] = null;
+                    System.out.println("Customer Deleted");
+                    return;
+                }
+            }
+        }
+        System.out.println("Customer Not Found");
+    }
+
     // update customer
     public static void updateCustomer() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert Nic to find the customer:");
+        String nic = input.nextLine();
+        for (int i = 0; i < customers.length; i++) {
+            if (customers[i][0] != null) {
+                if (customers[i][0].equals(nic)) {
+                    String newName, newAddress;
+                    double newSalary;
+                    System.out.println("Insert new Customer Name");
+                    newName = input.nextLine();
+                    System.out.println("Insert new Customer Address");
+                    newAddress = input.nextLine();
+                    System.out.println("Insert new Customer Salary");
+                    newSalary = input.nextDouble();
+                    customers[i][1] = newName;
+                    customers[i][2] = newAddress;
+                    customers[i][3] = String.valueOf(newSalary);
+                    System.out.println("Customer Updated.");
+                    return;
+                }
+            }
+        }
+        System.out.println("Customer Not Found");
+
     }
 
     //find customer
@@ -196,13 +254,13 @@ public class AppInitializer {
         String nic = input.nextLine();
 
         for (int i = 0; i < customers.length; i++) {
-            if (customers[i][0]!=null){
-                if (customers[i][0].equals(nic)){
+            if (customers[i][0] != null) {
+                if (customers[i][0].equals(nic)) {
                     System.out.println("=======================Customer==================");
-                    System.out.println("Nic:" +customers[i][0]);
-                    System.out.println("Name:" +customers[i][1]);
-                    System.out.println("Address:" +customers[i][2]);
-                    System.out.println("Salary:" +customers[i][3]);
+                    System.out.println("Nic:" + customers[i][0]);
+                    System.out.println("Name:" + customers[i][1]);
+                    System.out.println("Address:" + customers[i][2]);
+                    System.out.println("Salary:" + customers[i][3]);
                     System.out.println("=======================Customer==================");
                     return;
                 }
@@ -233,7 +291,7 @@ public class AppInitializer {
                         System.out.println("Customer Already Exists!");
                         break;
                     }
-                }else{
+                } else {
                     customers[i][0] = nic;
                     customers[i][1] = name;
                     customers[i][2] = address;
@@ -255,7 +313,6 @@ public class AppInitializer {
             }
         }
     }
-
 
 
     public static void printUi(String position) {
